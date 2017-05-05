@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hrbeu.zzw.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.hrbeu.zzw.model.Order">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="p_id" jdbcType="INTEGER" property="pId" />
+    <result column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="from" jdbcType="VARCHAR" property="from" />
+    <result column="to" jdbcType="VARCHAR" property="to" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="addtime" jdbcType="DATE" property="addtime" />
+    <result column="totalmoney" jdbcType="DOUBLE" property="totalmoney" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, p_id, s_id, type, from, to, state, addtime, totalmoney
+  </sql>
+  <sql id="Where_Stat_Selective">
+    <where>
+      <if test="type != null || type != ''">
+        and type = #{type},
+      </if>
+      <if test="from != null || type != ''">
+        and from = #{from},
+      </if>
+      <if test="to != null || type != ''">
+        and to = #{to},
+      </if>
+      <if test="state != null || state != ''">
+        and state = #{state},
+      </if>
+      <if test="addTime != null || addTime != ''">
+        and addtime = #{addTime},
+      </if>
+    </where>
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from o_info
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from o_info
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hrbeu.zzw.model.Order">
+    insert into o_info (Id, p_id, s_id, 
+      type, from, to, state, 
+      addtime, totalmoney)
+    values (#{id,jdbcType=INTEGER}, #{pId,jdbcType=INTEGER}, #{sId,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR}, #{from,jdbcType=VARCHAR}, #{to,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{addtime,jdbcType=DATE}, #{totalmoney,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hrbeu.zzw.model.Order">
+    insert into o_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="from != null">
+        from,
+      </if>
+      <if test="to != null">
+        to,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="addtime != null">
+        addtime,
+      </if>
+      <if test="totalmoney != null">
+        totalmoney,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="sId != null">
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="from != null">
+        #{from,jdbcType=VARCHAR},
+      </if>
+      <if test="to != null">
+        #{to,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=DATE},
+      </if>
+      <if test="totalmoney != null">
+        #{totalmoney,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hrbeu.zzw.model.Order">
+    update o_info
+    <set>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="sId != null">
+        s_id = #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="from != null">
+        from = #{from,jdbcType=VARCHAR},
+      </if>
+      <if test="to != null">
+        to = #{to,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=DATE},
+      </if>
+      <if test="totalmoney != null">
+        totalmoney = #{totalmoney,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hrbeu.zzw.model.Order">
+    update o_info
+    set p_id = #{pId,jdbcType=INTEGER},
+      s_id = #{sId,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      from = #{from,jdbcType=VARCHAR},
+      to = #{to,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=DATE},
+      totalmoney = #{totalmoney,jdbcType=DOUBLE}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
